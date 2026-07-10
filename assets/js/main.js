@@ -31,7 +31,7 @@ if (yearEl) {
 }
 
 // scroll reveal, staggered per item within each list
-const staggerGroups = ['.skills-row', '.project-teaser', '.project-entry'];
+const staggerGroups = ['.skills-row', '.project-card'];
 staggerGroups.forEach((selector) => {
   const parents = new Set();
   document.querySelectorAll(selector).forEach((el) => parents.add(el.parentElement));

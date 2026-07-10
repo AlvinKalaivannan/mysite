@@ -2,17 +2,18 @@
    Design tokens
 --------------------------------------------------------- */
 :root {
-  /* color — warm neutral paper palette, rust + UofT-blue accents */
-  --color-bg: #f6f2ea;
-  --color-bg-raised: #efe9dd;
-  --color-ink: #211d18;
-  --color-ink-muted: #6b6154;
-  --color-border: #dcd3c2;
+  /* color — cool neutral palette, rust + UofT-blue accents */
+  --color-bg: #f2f3f4;
+  --color-bg-raised: #e9ebed;
+  --color-ink: #1c1f24;
+  --color-ink-muted: #5b6169;
+  --color-border: #d7dade;
   --color-accent: #b8391a;
-  --color-accent-ink: #f6f2ea;
+  --color-accent-ink: #f2f3f4;
   --color-accent-2: #1e3765;
-  --color-accent-2-ink: #f6f2ea;
+  --color-accent-2-ink: #f2f3f4;
   --grid-dot: color-mix(in srgb, var(--color-ink) 5%, transparent);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* type */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -35,6 +36,7 @@
   --space-8: 2rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-20: 5rem;
   --space-24: 6rem;
 
   --radius: 3px;
@@ -44,15 +46,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #18150f;
-    --color-bg-raised: #201b14;
-    --color-ink: #ece5d6;
-    --color-ink-muted: #a89d8a;
-    --color-border: #3a3226;
+    --color-bg: #15171a;
+    --color-bg-raised: #1d2024;
+    --color-ink: #e7e9ec;
+    --color-ink-muted: #9aa0a8;
+    --color-border: #2e3238;
     --color-accent: #e8794a;
-    --color-accent-ink: #18150f;
+    --color-accent-ink: #15171a;
     --color-accent-2: #7f9bcc;
-    --color-accent-2-ink: #18150f;
+    --color-accent-2-ink: #15171a;
     --grid-dot: color-mix(in srgb, var(--color-ink) 4.5%, transparent);
   }
 }
@@ -141,12 +143,48 @@ button:focus-visible {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0% 1px;
-  transition: background-size 0.2s ease;
+  transition: background-size 0.2s var(--ease);
   padding-bottom: 2px;
 }
 .text-link:hover,
 .text-link:focus-visible {
   background-size: 100% 1px;
+}
+
+/* ---------------------------------------------------------
+   Floating social sidebar
+--------------------------------------------------------- */
+.side-social {
+  position: fixed;
+  left: var(--space-8);
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+}
+.side-social a {
+  display: flex;
+  color: var(--color-ink-muted);
+  transition: color 0.15s var(--ease), transform 0.15s var(--ease);
+}
+.side-social a:hover,
+.side-social a:focus-visible {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+.side-social-line {
+  width: 1px;
+  height: 5.5rem;
+  background: var(--color-border);
+}
+
+@media (max-width: 1199px) {
+  .side-social {
+    display: none;
+  }
 }
 
 /* ---------------------------------------------------------
@@ -159,6 +197,21 @@ main {
 }
 
 /* ---------------------------------------------------------
+   Scroll reveal (defined early: component hover transforms
+   defined later in the cascade must win ties over this)
+--------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: calc(var(--reveal-i, 0) * 70ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------
    Header / nav
 --------------------------------------------------------- */
 .site-header {
@@ -167,7 +220,7 @@ main {
   z-index: 50;
   background: var(--color-bg);
   border-bottom: 1px solid transparent;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .site-header {
@@ -204,7 +257,7 @@ main {
 .nav-links a {
   position: relative;
   color: var(--color-ink-muted);
-  transition: color 0.15s ease;
+  transition: color 0.15s var(--ease);
 }
 .nav-links a::after {
   content: '';
@@ -216,7 +269,7 @@ main {
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s var(--ease);
 }
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
@@ -234,7 +287,7 @@ main {
   color: var(--color-accent);
   font-weight: 600;
   letter-spacing: 0.02em;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
 }
 .nav-links a.nav-cta::after {
   content: none;
@@ -246,7 +299,7 @@ main {
 }
 
 .wordmark {
-  transition: color 0.15s ease;
+  transition: color 0.15s var(--ease);
 }
 .wordmark:hover {
   color: var(--color-accent);
@@ -347,7 +400,7 @@ main {
   font-size: var(--step--1);
   color: var(--color-ink-muted);
   white-space: nowrap;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition: color 0.15s var(--ease), transform 0.15s var(--ease);
 }
 .view-all:hover {
   color: var(--color-accent);
@@ -355,33 +408,38 @@ main {
 }
 
 /* ---------------------------------------------------------
-   Featured projects teaser (home page)
+   Project cards (shared: home teaser + full list)
 --------------------------------------------------------- */
 .featured-projects {
-  padding-block: var(--space-16);
+  padding-block: var(--space-20);
   border-top: 1px solid var(--color-border);
 }
 
-.project-teaser-list {
-  display: flex;
-  flex-direction: column;
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-8);
 }
 
-.project-teaser {
-  padding-block: var(--space-6);
-  padding-inline: var(--space-6);
-  margin-inline: calc(var(--space-6) * -1);
-  border-top: 1px solid var(--color-border);
-  transition: background-color 0.2s ease;
+.project-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  background: var(--color-bg);
+  scroll-margin-top: var(--space-16);
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.project-teaser:last-child {
-  border-bottom: 1px solid var(--color-border);
-}
-.project-teaser:hover {
+.project-card:hover {
   background-color: var(--color-bg-raised);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+.project-card:target {
+  background-color: var(--color-bg-raised);
+  border-color: var(--color-accent);
 }
 
-.project-teaser-head {
+.project-card-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -389,25 +447,26 @@ main {
   margin-bottom: var(--space-2);
 }
 
-.project-teaser-head h3 {
+.project-card-head h2,
+.project-card-head h3 {
   display: inline-flex;
   align-items: baseline;
   gap: var(--space-2);
 }
-.project-teaser-head h3 a {
+.project-card-head a {
   color: inherit;
 }
-.project-teaser-head h3 a:hover {
+.project-card-head a:hover {
   color: var(--color-accent);
 }
-.project-teaser-head h3::after {
+.project-card-head h3::after {
   content: '→';
   color: var(--color-accent);
   opacity: 0;
   transform: translateX(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.project-teaser:hover .project-teaser-head h3::after {
+.project-card:hover .project-card-head h3::after {
   opacity: 1;
   transform: translateX(0);
 }
@@ -417,9 +476,8 @@ main {
   color: var(--color-ink-muted);
 }
 
-.project-teaser p:not(.project-tags) {
+.project-card > p:not(.project-tags) {
   color: var(--color-ink-muted);
-  max-width: 38rem;
   margin-bottom: var(--space-2);
 }
 
@@ -432,7 +490,7 @@ main {
    Full project list (projects.html)
 --------------------------------------------------------- */
 .page-intro {
-  padding-block: var(--space-16) var(--space-8);
+  padding-block: var(--space-20) var(--space-12);
 }
 
 .page-intro h1 {
@@ -443,31 +501,7 @@ main {
   padding-bottom: var(--space-24);
 }
 
-.project-entry {
-  padding-block: var(--space-8);
-  padding-inline: var(--space-6);
-  margin-inline: calc(var(--space-6) * -1);
-  border-top: 1px solid var(--color-border);
-  scroll-margin-top: var(--space-8);
-  transition: background-color 0.2s ease;
-}
-.project-entry:hover,
-.project-entry:target {
-  background-color: var(--color-bg-raised);
-}
-.project-entry:last-child {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.project-entry-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin-bottom: var(--space-2);
-}
-
-.project-entry .project-tags {
+.project-card .project-tags {
   margin-bottom: var(--space-4);
 }
 
@@ -475,13 +509,13 @@ main {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  max-width: 38rem;
   margin-bottom: var(--space-4);
 }
 .project-bullets li {
   position: relative;
   padding-left: var(--space-4);
   color: var(--color-ink-muted);
+  font-size: var(--step--1);
 }
 .project-bullets li::before {
   content: '—';
@@ -500,7 +534,7 @@ main {
 }
 .project-link span {
   display: inline-block;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s var(--ease);
 }
 .project-link:hover {
   text-decoration: underline;
@@ -514,7 +548,7 @@ main {
    Contact
 --------------------------------------------------------- */
 .contact {
-  padding-block: var(--space-16) var(--space-24);
+  padding-block: var(--space-20) var(--space-24);
   border-top: 1px solid var(--color-border);
 }
 
@@ -528,7 +562,7 @@ main {
 }
 
 .contact-list a {
-  transition: color 0.15s ease;
+  transition: color 0.15s var(--ease);
 }
 .contact-list a:hover {
   color: var(--color-accent);
@@ -543,20 +577,6 @@ main {
   text-align: center;
   font-size: var(--step--1);
   color: var(--color-ink-muted);
-}
-
-/* ---------------------------------------------------------
-   Scroll reveal
---------------------------------------------------------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  transition-delay: calc(var(--reveal-i, 0) * 70ms);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 /* ---------------------------------------------------------
@@ -610,10 +630,13 @@ main {
     gap: var(--space-1);
   }
 
-  .project-teaser-head,
-  .project-entry-head {
+  .project-card-head {
     flex-direction: column;
     gap: var(--space-1);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
   }
 
   .contact-list {
