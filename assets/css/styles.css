@@ -231,44 +231,7 @@ main {
 --------------------------------------------------------- */
 .hero {
   padding-block: var(--space-24) var(--space-16);
-  max-width: var(--page-width);
-  display: grid;
-  grid-template-areas: "photo" "text";
-  gap: var(--space-8);
-}
-
-.hero-text {
-  grid-area: text;
   max-width: var(--content-width);
-}
-
-.hero-photo {
-  grid-area: photo;
-}
-
-.hero-photo img {
-  width: 11rem;
-  height: 13rem;
-  object-fit: cover;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  transform: rotate(-1.5deg);
-  transition: transform 0.3s ease;
-}
-.hero-photo img:hover {
-  transform: rotate(0deg);
-}
-
-@media (min-width: 641px) {
-  .hero {
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "text photo";
-    align-items: start;
-  }
-  .hero-photo img {
-    width: 13rem;
-    height: 15.5rem;
-  }
 }
 
 .eyebrow {
