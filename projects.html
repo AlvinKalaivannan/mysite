@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects &mdash; Alvin Kalaivannan</title>
+  <meta name="description" content="Selected software and hardware projects by Alvin Kalaivannan, including BananaMOV, Konnect, and Grabby.">
+
+  <meta property="og:title" content="Projects — Alvin Kalaivannan">
+  <meta property="og:description" content="Selected software and hardware projects by Alvin Kalaivannan.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://REPLACE_WITH_DOMAIN/projects.html">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="/" class="wordmark">Alvin Kalaivannan</a>
+      <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="/projects.html" aria-current="page">projects</a>
+        <a href="/#contact">contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-intro">
+      <p class="eyebrow">Selected work</p>
+      <h1>Projects</h1>
+    </section>
+
+    <ul class="project-list">
+      <li class="project-entry">
+        <div class="project-entry-head">
+          <h2>BananaMOV</h2>
+          <span class="project-year">2026</span>
+        </div>
+        <p class="project-tags">Next.js &middot; TypeScript &middot; Gemini 2.5 Flash &middot; ElevenLabs</p>
+        <ul class="project-bullets">
+          <li>Used Gemini 2.5 Flash to analyze an uploaded video and extract mood, pacing, and energy data, then sent that analysis to ElevenLabs to generate a custom, royalty-free score.</li>
+          <li>Structured the ElevenLabs Music request as a composition plan tied to the video's timeline, so the score changes with the footage instead of looping underneath it.</li>
+          <li>Built stem separation with Demucs and a Web Audio API DAW with mixer, effects, and WAV export; stored projects in Neon Postgres with Vercel Blob for file storage.</li>
+        </ul>
+        <a class="project-link" href="https://github.com/hppddub/jamhacks2026" target="_blank" rel="noopener">repository &rarr;</a>
+      </li>
+
+      <li class="project-entry">
+        <div class="project-entry-head">
+          <h2>Konnect</h2>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-tags">Kotlin &middot; Java &middot; Android &middot; Supabase</p>
+        <ul class="project-bullets">
+          <li>Built an Android app that uses Google Maps and Geolocation APIs to detect when two registered users are near each other and push a notification to both.</li>
+          <li>Added XP, quests, and leaderboards to reward in-person meetups, with Supabase handling auth and real-time state sync across devices.</li>
+        </ul>
+        <a class="project-link" href="https://github.com/Nityasav/konnect" target="_blank" rel="noopener">repository &rarr;</a>
+      </li>
+
+      <li class="project-entry">
+        <div class="project-entry-head">
+          <h2>Grabby</h2>
+          <span class="project-year">2025</span>
+        </div>
+        <p class="project-tags">Python &middot; OpenCV &middot; MediaPipe &middot; Arduino &middot; C++</p>
+        <ul class="project-bullets">
+          <li>Used OpenCV and MediaPipe to detect push-up reps in real time via webcam and credit the user with "clicks" redeemable through voice commands or hand gestures to control the mouse.</li>
+          <li>Wired two servo motors to an Arduino and sent cursor coordinates over serial so a physical robotic pointer tracks on-screen movement in real time.</li>
+        </ul>
+        <a class="project-link" href="https://github.com/RyanRoyc/Grabby" target="_blank" rel="noopener">repository &rarr;</a>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Alvin Kalaivannan</p>
+  </footer>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
