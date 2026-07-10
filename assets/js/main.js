@@ -22,14 +22,26 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-// scroll reveal
-const revealTargets = document.querySelectorAll(
-  '.hero, .featured-projects, .project-entry, .contact'
-);
+// scroll reveal, staggered per item within each list
+const staggerGroups = ['.skills-row', '.project-teaser', '.project-entry'];
+staggerGroups.forEach((selector) => {
+  const parents = new Set();
+  document.querySelectorAll(selector).forEach((el) => parents.add(el.parentElement));
+  parents.forEach((parent) => {
+    Array.from(parent.children)
+      .filter((el) => el.matches(selector))
+      .forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.setProperty('--reveal-i', i);
+      });
+  });
+});
+
+document.querySelectorAll('.hero, .contact').forEach((el) => el.classList.add('reveal'));
+
+const revealTargets = document.querySelectorAll('.reveal');
 
 if ('IntersectionObserver' in window && revealTargets.length) {
-  revealTargets.forEach((el) => el.classList.add('reveal'));
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -43,4 +55,6 @@ if ('IntersectionObserver' in window && revealTargets.length) {
   );
 
   revealTargets.forEach((el) => observer.observe(el));
+} else {
+  revealTargets.forEach((el) => el.classList.add('is-visible'));
 }
